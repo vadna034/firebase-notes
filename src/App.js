@@ -18,6 +18,9 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
+              <Redirect to="/Notes" />
+            </Route>
+            <Route exact path="/Notes">
               <Main />
             </Route>
             <Route exact path="/Auth">
