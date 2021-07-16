@@ -14,6 +14,7 @@ export default function Create() {
   const [redirect, setRedirect] = useState('');
   const { id } = useParams();
   const { user, setUser } = useContext(AuthContext);
+  const [timeoutId, setTimeoutId] = useState(1);
 
   useEffect(() => {
     let tempContent = null;
@@ -41,8 +42,34 @@ export default function Create() {
     }
   });
 
+  function removeTags(str) {
+    if (str === null || str === '') return false;
+    else str = str.toString();
+    return str.replace(/(<([^>]+)>)/gi, '');
+  }
+
   const handleEditorChange = (markup) => {
     setMarkup(markup);
+    console.log('handleEditorChange');
+
+    clearInterval(timeoutId);
+    setTimeoutId(
+      setTimeout(() => {
+        let [title, ...body] =  markup.split('\n')
+        body = body.join('\n')
+        title = removeTags(title);
+        body = removeTags(body);
+               
+
+        db.collection('notes').doc(id).update({
+          title: title,
+          content: body,
+          markup: markup,
+        });
+        content.markup = markup;
+        console.log('saving', timeoutId);
+      }, 5000)
+    );
   };
 
   const deleteNote = () => {
@@ -56,7 +83,7 @@ export default function Create() {
 
   return redirect ? (
     <Redirect to={redirect} />
-  ) : !content || user.uid !== content.author ? (
+  ) : !content || !user || user.uid !== content.author ? (
     <div class="loading loading-lg" />
   ) : (
     <div>
