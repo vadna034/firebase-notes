@@ -1,20 +1,11 @@
 import { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-
-import NewNoteButton from '../components/NewNoteButton';
-import NoteTable from '../components/NoteTable';
-
 import { AuthContext } from '../context/AuthContext';
 
-export default function Main() {
+export default function Create() {
   const { user, setUser } = useContext(AuthContext);
 
   if (!user) return <Redirect to="/Auth" />;
 
-  return (
-    <div>
-      <NewNoteButton />
-      <NoteTable />
-    </div>
-  );
+  return <h1>Create</h1>;
 }

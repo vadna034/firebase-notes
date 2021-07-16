@@ -9,6 +9,7 @@ import Note from './views/Note';
 
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
+import Create from './views/Create';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/Notes/:id">
               <Note />
+            </Route>
+            <Route path="/Create">
+              <Create />
             </Route>
             <Route component={NotFound} />
           </Switch>
