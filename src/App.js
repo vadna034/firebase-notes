@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
 import Main from './views/Main';
 import NotFound from './views/NotFound';
 import Auth from './views/Auth';
@@ -10,6 +11,7 @@ import Note from './views/Note';
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
 import Create from './views/Create';
+import PrivateRoute from './router/PrivateRoute';
 
 function App() {
   return (
@@ -20,21 +22,21 @@ function App() {
             <NavBar />
           </div>
           <Switch>
-            <Route exact path="/">
-              <Redirect to="/Notes" />
-            </Route>
-            <Route exact path="/Notes">
-              <Main />
-            </Route>
             <Route exact path="/Auth">
               <Auth />
             </Route>
-            <Route path="/Notes/:id">
+            <PrivateRoute exact path="/">
+              <Redirect to="/Notes" />
+            </PrivateRoute>
+            <PrivateRoute exact path="/Notes">
+              <Main />
+            </PrivateRoute>
+            <PrivateRoute path="/Notes/:id">
               <Note />
-            </Route>
-            <Route path="/Create/:id">
+            </PrivateRoute>
+            <PrivateRoute path="/Create/:id">
               <Create />
-            </Route>
+            </PrivateRoute>
             <Route component={NotFound} />
           </Switch>
         </AuthProvider>
