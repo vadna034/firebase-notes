@@ -12,6 +12,7 @@ export default function NoteTable(props) {
     if (notes === null) {
       var notesTemp = [];
       db.collection('notes')
+        .where('author', '==', props.user.uid)
         .get()
         .then((snap) => {
           snap.forEach((doc) => {

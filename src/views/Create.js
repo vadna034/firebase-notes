@@ -4,11 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 
 import { Editor } from '@tinymce/tinymce-react';
 import { db } from '../firebase/firebaseConfig';
+import EditNav from '../components/EditNav';
 
 export default function Create() {
   const editorRef = useRef(null);
   const location = useLocation();
   const [content, setContent] = useState(null);
+  const [markup, setMarkup] = useState(null);
   const [redirect, setRedirect] = useState('');
   const { id } = useParams();
   const { user, setUser } = useContext(AuthContext);
@@ -28,19 +30,19 @@ export default function Create() {
         .doc(id)
         .get()
         .then((doc) => {
-          console.log('here');
-          console.log(doc);
-          console.log(doc.data());
           tempContent = doc.data();
           setContent(tempContent);
+          setMarkup(tempContent.markup);
         });
     }
 
-    if (tempContent && user.uid != tempContent.author) setRedirect('/Auth');
+    if (user && content && user.uid != content.author) {
+      setRedirect('/Auth');
+    }
   });
 
-  const handleEditorChange = (content) => {
-    setContent(content);
+  const handleEditorChange = (markup) => {
+    setMarkup(markup);
   };
 
   const deleteNote = () => {
@@ -54,10 +56,11 @@ export default function Create() {
 
   return redirect ? (
     <Redirect to={redirect} />
-  ) : !content ? (
+  ) : !content || user.uid !== content.author ? (
     <div class="loading loading-lg" />
   ) : (
     <div>
+      <EditNav note={content} id={id} />
       <Editor
         apiKey="psre9zke0ox1ea2oostu23erhq2qmiyokv9od060xunx633h"
         plugins="image code"

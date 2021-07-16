@@ -14,7 +14,7 @@ export default function Main() {
   return (
     <div>
       <NewNoteButton />
-      <NoteTable />
+      <NoteTable user={user} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useLocation, Redirect } from 'react-router-dom';
+import EditNav from '../components/EditNav';
 import { AuthContext } from '../context/AuthContext';
 
 import { db } from '../firebase/firebaseConfig';
@@ -14,7 +15,7 @@ export default function Note(props) {
   useEffect(() => {
     let tempContent = null;
 
-    if (note == null && location.state && location.state.note !== undefined) {
+    if (note === null && location.state && location.state.note !== undefined) {
       tempContent = location.state.note;
     } else if (note == null) {
       db.collection('notes')
@@ -25,22 +26,23 @@ export default function Note(props) {
           setNote(tempContent);
         });
     }
+    if (tempContent != null) setNote(tempContent);
 
-    if (tempContent && user.uid != tempContent.author) {
-      console.log(user);
+    if (user && note && user.uid != note.author) {
       setRedirect('/Auth');
     }
-    if (tempContent) setNote(tempContent);
-    console.log(tempContent);
   });
 
-  return note !== null ? (
-    <div
-      class="article"
-      dangerouslySetInnerHTML={{
-        __html: note.markup,
-      }}
-    ></div>
+  return note && note.markup && user.uid == note.author ? (
+    <div>
+      <EditNav note={note} id={id} />
+      <div
+        class="article"
+        dangerouslySetInnerHTML={{
+          __html: note.markup,
+        }}
+      ></div>
+    </div>
   ) : redirect ? (
     <Redirect to={redirect} />
   ) : (
