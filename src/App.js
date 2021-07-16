@@ -32,7 +32,7 @@ function App() {
             <Route path="/Notes/:id">
               <Note />
             </Route>
-            <Route path="/Create">
+            <Route path="/Create/:id">
               <Create />
             </Route>
             <Route component={NotFound} />
