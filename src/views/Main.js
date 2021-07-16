@@ -1,3 +1,11 @@
+import NewNoteButton from '../components/NewNoteButton';
+import NoteTable from '../components/NoteTable';
+
 export default function Main() {
-  return <h1>main</h1>;
+  return (
+    <div>
+      <NewNoteButton />
+      <NoteTable />
+    </div>
+  );
 }

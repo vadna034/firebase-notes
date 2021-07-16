@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Main from './views/Main';
 import NotFound from './views/NotFound';
 import Auth from './views/Auth';
+import Note from './views/Note';
+
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
 
@@ -25,6 +27,9 @@ function App() {
             </Route>
             <Route exact path="/Auth">
               <Auth />
+            </Route>
+            <Route path="/Notes/:id">
+              <Note />
             </Route>
             <Route component={NotFound} />
           </Switch>

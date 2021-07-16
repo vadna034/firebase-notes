@@ -13,25 +13,26 @@ function NavBar(props) {
     <div class="nav-main">
       <header id="nav-lg" class="navbar">
         <section class="navbar-section">
-          <div class="btn btn-link">
-            {user ? (
-              <NavLink to="/Notes" activeClassName="active">
-                Notes
-              </NavLink>
-            ) : null}
-          </div>
+          {user ? (
+            <div>
+              <div class="btn btn-link">
+                <NavLink to="/Notes" activeClassName="active">
+                  My Collection
+                </NavLink>
+              </div>
+              <div class="btn btn-link">
+                <NavLink to="/Auth" activeClassName="active">
+                  Profile
+                </NavLink>
+              </div>
+            </div>
+          ) : null}
         </section>
         <section class="navbar-center">
-          <h2>Notes</h2>
+          <h2>Easy Notes</h2>
         </section>
         <section class="navbar-section">
-          <div class="btn btn-link">
-            {user ? (
-              <NavLink to="/Auth" activeClassName="active">
-                Profile
-              </NavLink>
-            ) : null}
-          </div>
+          <div class="btn btn-link"></div>
         </section>
       </header>
     </div>
