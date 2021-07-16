@@ -8,21 +8,31 @@ export default function Note(props) {
   let { user, setUser } = useContext(AuthContext);
   let { id } = useParams();
   const [note, setNote] = useState(null);
+  const [redirect, setRedirect] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
-    console.log('re-rendering');
-    console.log(location);
-    // load article form DB
+    let tempContent = null;
 
-    if (note == null && location.state.note != null) {
-      setNote(location.state.note);
+    if (note == null && location.state && location.state.note !== undefined) {
+      tempContent = location.state.note;
+    } else if (note == null) {
+      db.collection('notes')
+        .doc(id)
+        .get()
+        .then((doc) => {
+          tempContent = doc.data();
+          setNote(tempContent);
+        });
     }
-  });
 
-  if (!user) {
-    return <Redirect to="/Auth" />;
-  }
+    if (tempContent && user.uid != tempContent.author) {
+      console.log(user);
+      setRedirect('/Auth');
+    }
+    if (tempContent) setNote(tempContent);
+    console.log(tempContent);
+  });
 
   return note !== null ? (
     <div
@@ -31,6 +41,8 @@ export default function Note(props) {
         __html: note.markup,
       }}
     ></div>
+  ) : redirect ? (
+    <Redirect to={redirect} />
   ) : (
     <div class="loading loading-lg"></div>
   );

@@ -14,12 +14,15 @@ export default function Create() {
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!user) {
-      setRedirect('/Auth');
-    }
+    let tempContent = null;
 
-    if (content == null && location.state.note !== undefined) {
-      setContent(location.state.note);
+    if (
+      content == null &&
+      location.state &&
+      location.state.note !== undefined
+    ) {
+      tempContent = location.state.note;
+      setContent(tempContent);
     } else if (content == null) {
       db.collection('notes')
         .doc(id)
@@ -27,10 +30,13 @@ export default function Create() {
         .then((doc) => {
           console.log('here');
           console.log(doc);
-          setContent(doc.data());
+          console.log(doc.data());
+          tempContent = doc.data();
+          setContent(tempContent);
         });
     }
-    console.log(content);
+
+    if (tempContent && user.uid != tempContent.author) setRedirect('/Auth');
   });
 
   const handleEditorChange = (content) => {
@@ -49,7 +55,7 @@ export default function Create() {
   return redirect ? (
     <Redirect to={redirect} />
   ) : !content ? (
-    <div class="loading loading-lg"></div>
+    <div class="loading loading-lg" />
   ) : (
     <div>
       <Editor
