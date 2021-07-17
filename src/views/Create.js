@@ -6,6 +6,8 @@ import { Editor } from '@tinymce/tinymce-react';
 import { db } from '../firebase/firebaseConfig';
 import EditNav from '../components/EditNav';
 
+import '../styles/Note.css';
+
 export default function Create() {
   const editorRef = useRef(null);
   const location = useLocation();
@@ -24,9 +26,11 @@ export default function Create() {
       location.state &&
       location.state.note !== undefined
     ) {
+      console.log('location');
       tempContent = location.state.note;
       setContent(tempContent);
     } else if (content == null) {
+      console.log('firebase');
       db.collection('notes')
         .doc(id)
         .get()
@@ -55,30 +59,42 @@ export default function Create() {
     clearInterval(timeoutId);
     setTimeoutId(
       setTimeout(() => {
-        let [title, ...body] =  markup.split('\n')
-        body = body.join('\n')
+        let [title, ...body] = markup.split('\n');
+        body = body.join('\n');
         title = removeTags(title);
         body = removeTags(body);
-               
 
         db.collection('notes').doc(id).update({
           title: title,
           content: body,
           markup: markup,
         });
-        content.markup = markup;
         console.log('saving', timeoutId);
-      }, 5000)
+      }, 20000)
     );
   };
 
   const deleteNote = () => {
     db.collection('notes')
       .doc(id)
-      .delete()
-      .then(() => {
-        setRedirect('/Notes');
-      });
+      .update({
+        delete: true
+      })
+  };
+
+  const saveNote = () => {
+    let [title, ...body] = markup.split('\n');
+    body = body.join('\n');
+    title = removeTags(title);
+    body = removeTags(body);
+
+    db.collection('notes').doc(id).update({
+      title: title,
+      content: body,
+      markup: markup,
+    });
+    content.markup = markup;
+    console.log('saving', timeoutId);
   };
 
   return redirect ? (
@@ -90,7 +106,7 @@ export default function Create() {
       <EditNav note={content} id={id} />
       <Editor
         apiKey="psre9zke0ox1ea2oostu23erhq2qmiyokv9od060xunx633h"
-        plugins="image code"
+        plugins="image code codesample"
         image_title="true"
         automatic_uploads="true"
         file_picker_types="image"
@@ -110,13 +126,16 @@ export default function Create() {
             'undo redo | formatselect | code | ' +
             'link image | bold italic backcolor | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help',
+            'removeformat | codesample | help',
           content_style:
             'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
         }}
       />
       <button class="btn" onClick={deleteNote}>
         Delete Note
+      </button>
+      <button class="btn" onClick={saveNote}>
+        Save Note
       </button>
     </div>
   );
