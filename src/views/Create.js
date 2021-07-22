@@ -106,7 +106,7 @@ export default function Create() {
       <EditNav note={content} id={id} />
       <Editor
         apiKey="psre9zke0ox1ea2oostu23erhq2qmiyokv9od060xunx633h"
-        plugins="image code codesample"
+        plugins="image code codesample table"
         image_title="true"
         automatic_uploads="true"
         file_picker_types="image"
@@ -119,11 +119,11 @@ export default function Create() {
           menubar: false,
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
-            'searchreplace visualblocks code fullscreen',
+            'searchreplace visualblocks code table fullscreen',
             'insertdatetime media table paste code help wordcount',
           ],
           toolbar:
-            'undo redo | formatselect | code | ' +
+            'undo redo | formatselect | code | table | ' +
             'link image | bold italic backcolor | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ' +
             'removeformat | codesample | help',
