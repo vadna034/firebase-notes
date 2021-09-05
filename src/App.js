@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import PrivateRoute from './router/PrivateRoute';
 
 import Main from './views/Main';
 import NotFound from './views/NotFound';
@@ -11,7 +12,6 @@ import Note from './views/Note';
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
 import Create from './views/Create';
-import PrivateRoute from './router/PrivateRoute';
 
 function App() {
   return (
@@ -25,9 +25,9 @@ function App() {
             <Route exact path="/Auth">
               <Auth />
             </Route>
-            <PrivateRoute exact path="/">
+            <Route exact path="/">
               <Redirect to="/Notes" />
-            </PrivateRoute>
+            </Route>
             <PrivateRoute exact path="/Notes">
               <Main />
             </PrivateRoute>
