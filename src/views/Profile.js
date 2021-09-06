@@ -1,50 +1,50 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { AuthContext } from '../context/AuthContext';
 import firebase from 'firebase';
 
 const Profile = (props) => {
-  const { userContext, setUser } = useContext(AuthContext);
-
-  const pfp = {
-    'border-radius': '100%',
-    margin: '1em 1em 0.5em 1em',
-  };
-
   return (
     <AuthContext.Consumer>
-      {(context) =>
-        (
-          <div
-            class="profile-logout-div"
+      {(context) => (
+        <div
+          className="profile-logout-div"
+          style={{
+            width: '75%',
+            margin: 'auto',
+          }}
+        >
+          <img
+            src={context.user.photoURL}
+            alt="Null"
             style={{
-              width: '75%',
-              margin: 'auto',
+              'border-radius': '100%',
+              width: '100px',
+              heigh: '100px',
+              margin: '1em 1em 0.5em 1em',
+            }}
+          />
+          <p>
+            {' '}
+            <strong>User:</strong> {context.user.displayName}
+          </p>
+          <button
+            className="btn"
+            style={{ margin: '0em 0em 1em' }}
+            onClick={() => {
+              firebase
+                .auth()
+                .signOut()
+                .then(() => {
+                  context.setUser(null);
+                });
             }}
           >
-            <img src={context.user.photoURL} alt="Null" style={pfp} />
-            <p>
-              {' '}
-              <strong>User:</strong> {context.user.displayName}
-            </p>
-            <button
-              class="btn"
-              style={{ margin: '0em 0em 1em' }}
-              onClick={() => {
-                firebase
-                  .auth()
-                  .signOut()
-                  .then(() => {
-                    setUser(null);
-                  });
-              }}
-            >
-              {' '}
-              sign out
-            </button>
-          </div>
-        )
-      }
+            {' '}
+            sign out
+          </button>
+        </div>
+      )}
     </AuthContext.Consumer>
   );
 };

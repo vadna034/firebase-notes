@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { db } from '../firebase/firebaseConfig';
 
 import { Link } from 'react-router-dom';
 import 'spectre.css';
 import '../styles/NoteTable.css';
+import { AuthContext } from '../context/AuthContext';
 
 export default function NoteTable(props) {
   const [notes, setNotes] = useState(null);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (notes === null) {
       var notesTemp = [];
       db.collection('notes')
-        .where('author', '==', props.user.uid)
+        .where('author', '==', user.uid)
         .get()
         .then((snap) => {
           snap.forEach((doc) => {
@@ -27,28 +29,27 @@ export default function NoteTable(props) {
     <div>
       {notes ? (
         notes.map((docRef, idx) => {
-          let doc = docRef.data();
+          let [data, id] = [docRef.data(), docRef.id];
           return (
-            <div class="article-snippet" key={idx}>
-              <div class="article-header-container">
+            <div className="article-snippet" key={idx}>
+              <div className="article-header-container">
                 <Link
-                  class="article-title"
+                  className="article-title"
                   to={{
-                    pathname: '/Notes/' + docRef.id,
-                    state: { note: doc },
+                    pathname: '/Notes/' + id,
                   }}
                 >
-                  {doc.title}
+                  {data.title}
                 </Link>
               </div>
-              <div class="article-content-container">
-                <p class="article-content">{doc.content}</p>
+              <div className="article-content-container">
+                <p className="article-content">{data.content}</p>
               </div>
             </div>
           );
         })
       ) : (
-        <div class="loading loading-lg"></div>
+        <div className="loading loading-lg"></div>
       )}
     </div>
   );

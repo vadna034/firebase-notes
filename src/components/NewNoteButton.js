@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import 'spectre.css';
 import 'spectre.css/dist/spectre-icons.css';
@@ -12,7 +12,7 @@ import { AuthContext } from '../context/AuthContext';
 export default function NewNoteButton() {
   const [redirect, setRedirect] = useState(false);
   const [docId, setDocId] = useState(null);
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const defaultArticle = {
     title: 'title',
@@ -22,7 +22,8 @@ export default function NewNoteButton() {
     author: user.uid,
   };
 
-  let handleClick = () => {
+  let handleClick = (e) => {
+    e.preventDefault();
     db.collection('notes')
       .add(defaultArticle)
       .then((snap) => {
@@ -34,11 +35,11 @@ export default function NewNoteButton() {
   return redirect ? (
     <Redirect to={{ pathname: '/Create/' + docId, state: defaultArticle }} />
   ) : (
-    <Link class="note-snippet p-centered" onClick={handleClick}>
-      <p class="note-content text-primary">
+    <a href="/" className="note-snippet p-centered" onClick={handleClick}>
+      <p className="note-content text-primary">
         Create a new Note
-        <i class="icon icon-plus"></i>
+        <i className="icon icon-plus"></i>
       </p>
-    </Link>
+    </a>
   );
 }

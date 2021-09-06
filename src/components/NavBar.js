@@ -6,33 +6,29 @@ import 'spectre.css';
 import { AuthContext } from '../context/AuthContext';
 
 function NavBar(props) {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   // 700 pixels should be minimum width.
 
   return (
-    <div class="nav-main">
-      <header id="nav-lg" class="navbar">
-        <section class="navbar-section">
+    <div className="nav-main">
+      <header id="nav-lg" className="navbar">
+        <section className="navbar-section">
           {user ? (
             <div>
-              <div class="btn btn-link">
-                <NavLink to="/Notes" activeClassName="active">
-                  My Collection
-                </NavLink>
+              <div className="btn btn-link">
+                <NavLink to="/Notes">My Collection</NavLink>
               </div>
-              <div class="btn btn-link">
-                <NavLink to="/Profile" activeClassName="active">
-                  Profile
-                </NavLink>
+              <div className="btn btn-link">
+                <NavLink to="/Profile">Profile</NavLink>
               </div>
             </div>
           ) : null}
         </section>
-        <section class="navbar-center">
+        <section className="navbar-center">
           <h2>Easy Notes</h2>
         </section>
-        <section class="navbar-section">
-          <div class="btn btn-link"></div>
+        <section className="navbar-section">
+          <div className="btn btn-link"></div>
         </section>
       </header>
     </div>

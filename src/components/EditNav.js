@@ -1,27 +1,24 @@
-import { Link } from 'react-router-dom';
-
 export default function EditNav(props) {
+  const setViewMode = (e) => {
+    e.preventDefault();
+    props.changeMode('view');
+  };
+  const setEditMode = (e) => {
+    e.preventDefault();
+    props.changeMode('edit');
+  };
+
   return (
-    <ul class="tab tab-block">
-      <li class="tab-item">
-        <Link
-          to={{
-            pathname: '/Notes/' + props.id,
-            state: { note: props.note },
-          }}
-        >
-          View{' '}
-        </Link>
+    <ul className="tab tab-block">
+      <li className={props.mode === 'view' ? 'tab-item active' : 'tab-item'}>
+        <a href="/#" onClick={setViewMode}>
+          View
+        </a>
       </li>
-      <li class="tab-item">
-        <Link
-          to={{
-            pathname: '/Create/' + props.id,
-            state: { note: props.note },
-          }}
-        >
+      <li className={props.mode === 'edit' ? 'tab-item active' : 'tab-item'}>
+        <a href="/#" onClick={setEditMode}>
           Edit
-        </Link>
+        </a>
       </li>
     </ul>
   );

@@ -21,6 +21,7 @@ export const analytics = firebase.analytics();
 
 // firestore "database" API
 export const db = firebase.firestore();
+
 export const increment = firebase.firestore.FieldValue.increment;
 
 // used to log a user in

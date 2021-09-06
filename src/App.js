@@ -9,7 +9,6 @@ import Note from './views/Note';
 
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
-import Create from './views/Create';
 import Profile from './views/Profile';
 
 function App() {
@@ -33,10 +32,7 @@ function App() {
             <PrivateRoute path="/Notes/:id">
               <Note />
             </PrivateRoute>
-            <PrivateRoute path="/Create/:id">
-              <Create />
-            </PrivateRoute>
-            <PrivateRoute component={NotFound} />
+            <PrivateRoute path="*" component={NotFound} />
           </Switch>
         </AuthProvider>
       </BrowserRouter>
