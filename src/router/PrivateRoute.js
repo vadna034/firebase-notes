@@ -2,23 +2,22 @@ import React, { Component, useContext } from 'react';
 import { Redirect, Route } from 'react-router';
 
 import { AuthContext } from '../context/AuthContext';
+import Auth from '../views/Auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { user, setUser } = useContext(AuthContext);
-
   return (
-    <Route
-      {...rest}
-      render={(props) =>
-        user ? (
-          <Component {...props} />
+    <AuthContext.Consumer>
+      {(context) => {
+        console.log(context);
+        return context.user ? (
+          <Route {...rest} render={(props) => <Component {...props} />} />
+        ) : context.user === undefined ? (
+          <div class="loading loading-lg"></div>
         ) : (
-          <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
-          />
-        )
-      }
-    />
+          <Auth />
+        );
+      }}
+    </AuthContext.Consumer>
   );
 };
 

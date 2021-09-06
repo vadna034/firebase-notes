@@ -21,7 +21,7 @@ function NavBar(props) {
                 </NavLink>
               </div>
               <div class="btn btn-link">
-                <NavLink to="/Auth" activeClassName="active">
+                <NavLink to="/Profile" activeClassName="active">
                   Profile
                 </NavLink>
               </div>
