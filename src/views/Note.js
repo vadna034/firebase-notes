@@ -5,6 +5,7 @@ import EditNav from '../components/EditNav';
 import NoteContainer from '../components/NoteContainer';
 import { AuthContext } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
+import { setLocalMarkup } from '../scripts/localStorage';
 
 const Note = (props) => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const Note = (props) => {
     if (data === undefined || data.author !== user.uid) setRedirect(true);
     else {
       setMarkup(data.markup);
-      localStorage.setItem(id, data.markup);
+      setLocalMarkup(id, markup, Date.now());
     }
   }
 

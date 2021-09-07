@@ -29,5 +29,3 @@ firestore.rules
 .firebaserc
 .firebase
 storage.rules
-
-scripts
