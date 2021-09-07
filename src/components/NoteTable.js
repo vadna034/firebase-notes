@@ -18,7 +18,7 @@ export default function NoteTable(props) {
         .get()
         .then((snap) => {
           snap.forEach((doc) => {
-            notesTemp.push(doc);
+            if (!doc.data().trash) notesTemp.push(doc);
           });
           setNotes(notesTemp);
         });

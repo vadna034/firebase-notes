@@ -8,6 +8,7 @@ import '../styles/NewNote.css';
 import { db } from '../firebase/firebaseConfig';
 import firebase from 'firebase';
 import { AuthContext } from '../context/AuthContext';
+import { setLocalMarkup } from '../scripts/localStorage';
 
 export default function NewNoteButton() {
   const [redirect, setRedirect] = useState(false);
@@ -28,12 +29,13 @@ export default function NewNoteButton() {
       .add(defaultArticle)
       .then((snap) => {
         setDocId(snap.id);
+        setLocalMarkup(snap.id, defaultArticle.markup);
         setRedirect(true);
       });
   };
 
   return redirect ? (
-    <Redirect to={{ pathname: '/Create/' + docId, state: defaultArticle }} />
+    <Redirect to={{ pathname: '/Notes/' + docId, state: defaultArticle }} />
   ) : (
     <a href="/" className="note-snippet p-centered" onClick={handleClick}>
       <p className="note-content text-primary">

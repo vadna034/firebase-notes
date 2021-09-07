@@ -5,18 +5,21 @@ import { Editor } from '@tinymce/tinymce-react';
 import { db } from '../firebase/firebaseConfig';
 
 import '../styles/Note.css';
+import firebase from 'firebase';
+import { setLocalMarkup } from '../scripts/localStorage';
 
 export default function CreateForm(props) {
   const editorRef = useRef(null);
   const { id } = useParams();
+  console.log(props);
 
   const handleEditorChange = (markup) => {
-    localStorage.setItem(id, markup);
+    setLocalMarkup(id, markup);
   };
 
   const deleteNote = () => {
     db.collection('notes').doc(id).update({
-      delete: true,
+      trash: true,
     });
   };
 
@@ -35,9 +38,10 @@ export default function CreateForm(props) {
     db.collection('notes')
       .doc(id)
       .update({
-        markup: localStorage.getItem(id),
+        markup: markup,
         title: removeTags(title),
         content: removeTags(body),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
   };
 
