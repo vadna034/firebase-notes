@@ -27,11 +27,13 @@ export const increment = firebase.firestore.FieldValue.increment;
 // used to log a user in
 export const auth = firebase.auth();
 export const provider = new firebase.auth.GoogleAuthProvider();
+export const providerID = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
 
 // Export types that exists in Firestore
 // This is not always necessary, but it's used in other examples
-const { Timestamp, GeoPoint } = firebase.firestore;
+const Timestamp = firebase.firestore.Timestamp;
+const GeoPoint = firebase.firestore.GeoPoint;
 export { Timestamp, GeoPoint };
 
 // if using Firebase JS SDK < 5.8.0
-db.settings({ timestampsInSnapshots: true });
+db.settings({ timestampsInSnapshots: true, merge: true });

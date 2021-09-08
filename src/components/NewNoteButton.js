@@ -5,8 +5,7 @@ import 'spectre.css';
 import 'spectre.css/dist/spectre-icons.css';
 import '../styles/NewNote.css';
 
-import { db } from '../firebase/firebaseConfig';
-import firebase from 'firebase';
+import { db, Timestamp } from '../firebase/firebaseConfig';
 import { AuthContext } from '../context/AuthContext';
 import { setLocalMarkup } from '../scripts/localStorage';
 
@@ -19,7 +18,7 @@ export default function NewNoteButton() {
     title: 'title',
     content: 'content',
     markup: '<h1>title</h1><p>content</p>',
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    timestamp: Timestamp.now(),
     author: user.uid,
   };
 

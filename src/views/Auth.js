@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase';
+import { auth, providerID } from '../firebase/firebaseConfig';
 
 import { FirebaseAuth } from 'react-firebaseui';
 
@@ -11,14 +11,14 @@ export default function Auth() {
         <FirebaseAuth
           uiConfig={{
             signInFlow: 'redirect',
-            signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+            signInOptions: [providerID],
             callbacks: {
               signInSuccess: () => {
                 return false;
               },
             },
           }}
-          firebaseAuth={firebase.auth()}
+          firebaseAuth={auth}
         />
       </div>
     </div>

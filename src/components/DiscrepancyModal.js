@@ -31,52 +31,54 @@ const DiscrepancyModal = (props) => {
 
   return (
     <div className={props.discrepancy ? 'modal active' : 'modal'} id="modal-id">
-      <div class="modal-container">
-        <div class="modal-header">
-          <div class="modal-title h5">
+      <div className="modal-container">
+        <div className="modal-header">
+          <div className="modal-title h5">
             Discrepancy in Local vs Firebase copy of Note
           </div>
         </div>
-        <div class="modal-body">
-          <div class="content">
+        <div className="modal-body">
+          <div className="content">
             <table style={{ width: '100%' }}>
-              <tr>
-                <td>
-                  <p className="float-left">
-                    Local copy from
-                    {' ' + localTime.toLocaleDateString('en-US', format)}
-                  </p>
-                </td>
-                <td>
-                  <button
-                    onClick={acceptLocal}
-                    className="btn float-right"
-                    style={{ width: '100%' }}
-                  >
-                    {' '}
-                    Accept Local
-                  </button>
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    <p className="float-left">
+                      Local copy from
+                      {' ' + localTime.toLocaleDateString('en-US', format)}
+                    </p>
+                  </td>
+                  <td>
+                    <button
+                      onClick={acceptLocal}
+                      className="btn float-right"
+                      style={{ width: '100%' }}
+                    >
+                      {' '}
+                      Accept Local
+                    </button>
+                  </td>
+                </tr>
 
-              <tr>
-                <td>
-                  <p className="float-left">
-                    Firebase copy from
-                    {' ' + firebaseTime.toLocaleDateString('en-US', format)}
-                  </p>
-                </td>
-                <td>
-                  <button
-                    onClick={acceptFirebase}
-                    className="btn float-right"
-                    style={{ width: '100%' }}
-                  >
-                    {' '}
-                    Accept Firebase
-                  </button>
-                </td>
-              </tr>
+                <tr>
+                  <td>
+                    <p className="float-left">
+                      Firebase copy from
+                      {' ' + firebaseTime.toLocaleDateString('en-US', format)}
+                    </p>
+                  </td>
+                  <td>
+                    <button
+                      onClick={acceptFirebase}
+                      className="btn float-right"
+                      style={{ width: '100%' }}
+                    >
+                      {' '}
+                      Accept Firebase
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

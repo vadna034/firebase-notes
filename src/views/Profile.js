@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AuthContext } from '../context/AuthContext';
-import firebase from 'firebase';
+import { auth } from '../firebase/firebaseConfig';
 
 const Profile = (props) => {
   return (
@@ -18,7 +18,7 @@ const Profile = (props) => {
             src={context.user.photoURL}
             alt="Null"
             style={{
-              'border-radius': '100%',
+              borderRadius: '100%',
               width: '100px',
               heigh: '100px',
               margin: '1em 1em 0.5em 1em',
@@ -32,12 +32,9 @@ const Profile = (props) => {
             className="btn"
             style={{ margin: '0em 0em 1em' }}
             onClick={() => {
-              firebase
-                .auth()
-                .signOut()
-                .then(() => {
-                  context.setUser(null);
-                });
+              auth.signOut().then(() => {
+                context.setUser(null);
+              });
             }}
           >
             {' '}

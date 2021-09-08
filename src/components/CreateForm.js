@@ -2,16 +2,14 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Editor } from '@tinymce/tinymce-react';
-import { db } from '../firebase/firebaseConfig';
+import { db, Timestamp } from '../firebase/firebaseConfig';
 
 import '../styles/Note.css';
-import firebase from 'firebase';
 import { setLocalMarkup } from '../scripts/localStorage';
 
 export default function CreateForm(props) {
   const editorRef = useRef(null);
   const { id } = useParams();
-  console.log(props);
 
   const handleEditorChange = (markup) => {
     setLocalMarkup(id, markup);
@@ -41,7 +39,7 @@ export default function CreateForm(props) {
         markup: markup,
         title: removeTags(title),
         content: removeTags(body),
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: Timestamp.now(),
       });
   };
 

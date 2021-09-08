@@ -6,7 +6,11 @@ import EditNav from '../components/EditNav';
 import NoteContainer from '../components/NoteContainer';
 import { AuthContext } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
-import { getLocalMarkup, setFirebaseMarkup, setLocalMarkup } from '../scripts/localStorage';
+import {
+  getLocalMarkup,
+  setFirebaseMarkup,
+  setLocalMarkup,
+} from '../scripts/localStorage';
 
 const Note = (props) => {
   const { id } = useParams();
@@ -35,14 +39,13 @@ const Note = (props) => {
       setDiscrepancy(true);
     } else {
       setMarkup(data.markup);
-      setLocalMarkup(id, data.markup)
+      setLocalMarkup(id, data.markup);
     }
   }
 
   function changeMode(newMode) {
     if (newMode !== mode) {
       setMode(newMode);
-      console.log(getLocalMarkup(id));
       setMarkup(localStorage.getItem(id));
     }
   }
