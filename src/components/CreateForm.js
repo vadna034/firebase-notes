@@ -7,6 +7,8 @@ import { db, Timestamp } from '../firebase/firebaseConfig';
 import '../styles/Note.css';
 import { setLocalMarkup } from '../scripts/localStorage';
 
+// API key is not exposed, as I have to whitelist a domain for access
+
 export default function CreateForm(props) {
   const editorRef = useRef(null);
   const { id } = useParams();
