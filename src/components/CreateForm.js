@@ -7,6 +7,7 @@ import { db, Timestamp } from '../firebase/firebaseConfig';
 import '../styles/Note.css';
 import { setLocalMarkup } from '../scripts/localStorage';
 import DeleteNoteButton from './DeleteNoteButton';
+import SaveNoteButton from './SaveNoteButton';
 
 
 // API key is not exposed, as I have to whitelist a domain for access
@@ -70,10 +71,8 @@ export default function CreateForm(props) {
             'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
         }}
       />
-      <button className="btn" onClick={saveNote}>
-        Save Note ?
-      </button>
-      <DeleteNoteButton id={id}></DeleteNoteButton>
+      <SaveNoteButton id={id}/>
+      <DeleteNoteButton id={id}/>
     </div>
   );
 }
