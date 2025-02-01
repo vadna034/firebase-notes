@@ -10,7 +10,7 @@ export default function Auth() {
         <p>Please Sign In</p>
         <FirebaseAuth
           uiConfig={{
-            signInFlow: 'redirect',
+            signInFlow: 'popup',
             signInOptions: [providerID],
             callbacks: {
               signInSuccess: () => {
