@@ -6,7 +6,7 @@ import { db, Timestamp } from '../firebase/firebaseConfig';
 
 import '../styles/Note.css';
 import { setLocalMarkup } from '../scripts/localStorage';
-import DeleteNoteForm from './DeleteNoteForm';
+import DeleteNoteButton from './DeleteNoteButton';
 
 
 // API key is not exposed, as I have to whitelist a domain for access
@@ -44,7 +44,7 @@ export default function CreateForm(props) {
   return (
     <div>
       <Editor
-        apiKey="psre9zke0ox1ea2oostu23erhq2qmiyokv9od060xunx633h"
+        apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
         plugins="image code codesample table"
         image_title="true"
         automatic_uploads="true"
@@ -71,9 +71,9 @@ export default function CreateForm(props) {
         }}
       />
       <button className="btn" onClick={saveNote}>
-        Save Note
+        Save Note ?
       </button>
-      <DeleteNoteForm id={id}></DeleteNoteForm>
+      <DeleteNoteButton id={id}></DeleteNoteButton>
     </div>
   );
 }

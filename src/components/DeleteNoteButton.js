@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import { db } from '../firebase/firebaseConfig';
 
-export default function DeleteNoteForm(props) {
+export default function DeleteNoteButton(props) {
   const [redirect, setRedirect] = useState(false);
   const [active, setActive] = useState('');
 
