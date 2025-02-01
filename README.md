@@ -1,4 +1,4 @@
-# [Easy Notes](https://shane-notes.web.app)
+# [Easy Notes](https://shane-notes-39396.web.app)
 
 Simple fast note taking app I created with Firebase. 
 
