@@ -11,7 +11,6 @@ import {
   setFirebaseMarkup,
   setLocalMarkup,
 } from '../scripts/localStorage';
-import DeleteNoteForm from '../components/DeleteNoteForm';
 
 const Note = (props) => {
   const { id } = useParams();
