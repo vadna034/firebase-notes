@@ -6,6 +6,8 @@ import { db, Timestamp } from '../firebase/firebaseConfig';
 
 import '../styles/Note.css';
 import { setLocalMarkup } from '../scripts/localStorage';
+import DeleteNoteForm from './DeleteNoteForm';
+
 
 // API key is not exposed, as I have to whitelist a domain for access
 
@@ -15,12 +17,6 @@ export default function CreateForm(props) {
 
   const handleEditorChange = (markup) => {
     setLocalMarkup(id, markup);
-  };
-
-  const deleteNote = () => {
-    db.collection('notes').doc(id).update({
-      trash: true,
-    });
   };
 
   const saveNote = () => {
@@ -74,12 +70,10 @@ export default function CreateForm(props) {
             'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
         }}
       />
-      <button className="btn" onClick={deleteNote}>
-        Delete Note
-      </button>
       <button className="btn" onClick={saveNote}>
         Save Note
       </button>
+      <DeleteNoteForm id={id}></DeleteNoteForm>
     </div>
   );
 }

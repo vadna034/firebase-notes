@@ -11,6 +11,7 @@ import {
   setFirebaseMarkup,
   setLocalMarkup,
 } from '../scripts/localStorage';
+import DeleteNoteForm from '../components/DeleteNoteForm';
 
 const Note = (props) => {
   const { id } = useParams();
@@ -73,7 +74,9 @@ const Note = (props) => {
         {mode === 'view' ? (
           <NoteContainer markup={markup}></NoteContainer>
         ) : (
-          <CreateForm markup={markup}></CreateForm>
+          <>
+            <CreateForm markup={markup} id={id}></CreateForm>
+          </>
         )}
       </div>
     );
