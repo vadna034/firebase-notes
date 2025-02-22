@@ -1,8 +1,14 @@
-# [Easy Notes](https://shane-notes.web.app)
+# [Easy Notes](https://shane-notes-39396.web.app)
 
-I find that most apps for taking notes leave me disorganized, and bothered. There is usually too much going on, I can't understand all of the features, etc. 
+Simple fast note taking app I created with Firebase. 
 
-I wanted to create a simple application that would let me take notes, that would be simple, fast, and would let me practice my skills with React and Firebase. This application does just that. 
+Users can login to view their notes. 
+
+Save notes. 
+
+Delete them. 
+
+And saving occurs locally so that notes if closed without saving, users can choose to either use the version saved to the database, or the version saved locally.
 
 ## Run it locally
 
@@ -15,5 +21,8 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Purpose
+### To do
 
+Store string data hashed so that I... the firebase admin... cannot see the data
+
+Add sharing of viewing of documents between users
